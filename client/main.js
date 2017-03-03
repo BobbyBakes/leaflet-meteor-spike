@@ -33,6 +33,15 @@ $(document).ready(function() {
         shadowAnchor: [22, 94]
     });
 
+    let cameraIcon = L.icon({
+        iconUrl: 'http://www.clipartbest.com/cliparts/KTj/o54/KTjo548ac.png',
+        iconSize: [25, 20],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+        shadowSize: [68, 95],
+        shadowAnchor: [22, 94]
+    });
+
 
     let markerRed = new L.Marker([40.300288, -83.541707], {
         icon: redIcon
@@ -40,10 +49,17 @@ $(document).ready(function() {
     let markerGreen = new L.Marker([40.317028, -83.561549], {
         icon: greenIcon
     });
+    let camera1 = new L.Marker([40.298586, -83.531446], {
+        icon: cameraIcon
+    }).on('click', function(e) {
+        imageDiv = '<div class="camera"></div>​'
+        $("#map").append(imageDiv);
+    });
     markerRed.addTo(map);
     markerGreen.addTo(map);
-    
-    // var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
-    // imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
+    camera1.addTo(map);
+    // image overlay
+    // var imageUrl = 'http://johngeorgeracing.com/gallery/var/resizes/racing/thompson2014/IMG_7482.jpg?m=1406648141',
+    // imageBounds = [[40.298586, -83.531446], [40.317028, -83.561549]];
     // L.imageOverlay(imageUrl, imageBounds).addTo(map);
 });
