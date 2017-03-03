@@ -1,12 +1,49 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import {
+    Template
+} from 'meteor/templating';
+import {
+    ReactiveVar
+} from 'meteor/reactive-var';
 import './main.html';
 
 
 $(document).ready(function() {
-     let map = L.map('map',{
+    let map = L.map('map', {
+        doubleClickZoom: true,
+        touchZoom: true
+    }).setView(new L.LatLng(40.308057, -83.541730), 13);
+    L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
+        opacity: .5
+    }).addTo(map);
+    let redIcon = L.icon({
+        iconUrl: 'http://www.clker.com/cliparts/q/0/m/g/P/c/red-sports-car-top-view.svg',
+        iconSize: [25, 10],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+        shadowSize: [68, 95],
+        shadowAnchor: [22, 94]
+    });
+
+    let greenIcon = L.icon({
+        iconUrl: 'http://images.clipartpanda.com/car-top-view-lime-car-top-view.svg',
+        iconSize: [25, 10],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+        shadowSize: [68, 95],
+        shadowAnchor: [22, 94]
+    });
 
 
-     }).setView(new L.LatLng(40.308057, -83.541730),13);
-     L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png',{opacity:.5}).addTo(map);
+    let markerRed = new L.Marker([40.300288, -83.541707], {
+        icon: redIcon
+    });
+    let markerGreen = new L.Marker([40.317028, -83.561549], {
+        icon: greenIcon
+    });
+    markerRed.addTo(map);
+    markerGreen.addTo(map);
+    
+    // var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
+    // imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
+    // L.imageOverlay(imageUrl, imageBounds).addTo(map);
 });
