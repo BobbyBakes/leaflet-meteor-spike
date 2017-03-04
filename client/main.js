@@ -52,7 +52,7 @@ $(document).ready(function() {
     let camera1 = new L.Marker([40.298586, -83.531446], {
         icon: cameraIcon
     }).on('click', function(e) {
-        imageDiv = '<div class="camera"></div>​'
+        imageDiv = '<span class="camera leaflet-control"></span>​'
         $("#map").append(imageDiv);
     });
     markerRed.addTo(map);
