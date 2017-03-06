@@ -1,0 +1,2 @@
+run:
+meteor run

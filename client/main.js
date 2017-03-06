@@ -7,14 +7,25 @@ import {
 import './main.html';
 
 
-$(document).ready(function() {
-    let map = L.map('map', {
-        doubleClickZoom: true,
-        touchZoom: true
-    }).setView(new L.LatLng(40.308057, -83.541730), 13);
-    L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
-        opacity: .5
+$(document).ready(function () {
+    // let map = L.map('map', {
+    //     doubleClickZoom: true,
+    //     touchZoom: true
+    // }).setView(new L.LatLng(40.308057, -83.541730), 13);
+
+
+    // L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
+    //     opacity: .5
+    // }).addTo(map);
+
+    var map = L.map('map').setView([0, 0], 1);
+    L.tileLayer('http://localhost:8000/sampleTrack/{z}/{x}/{y}.png', {
+        minZoom: 1,
+        maxZoom: 6,
+        tms:true
     }).addTo(map);
+
+
     let redIcon = L.icon({
         iconUrl: 'http://www.clker.com/cliparts/q/0/m/g/P/c/red-sports-car-top-view.svg',
         iconSize: [25, 10],
@@ -51,7 +62,7 @@ $(document).ready(function() {
     });
     let camera1 = new L.Marker([40.298586, -83.531446], {
         icon: cameraIcon
-    }).on('click', function(e) {
+    }).on('click', function (e) {
         $(".camera").toggle();
     });
     markerRed.addTo(map);
