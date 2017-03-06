@@ -18,7 +18,7 @@ $(document).ready(function () {
     //     opacity: .5
     // }).addTo(map);
 
-    var map = L.map('map').setView([0, 0], 1);
+    var map = L.map('map').setView([-70, -70], 4);
     L.tileLayer('http://localhost:8000/sampleTrack/{z}/{x}/{y}.png', {
         minZoom: 1,
         maxZoom: 6,
@@ -28,7 +28,7 @@ $(document).ready(function () {
 
     let redIcon = L.icon({
         iconUrl: 'http://www.clker.com/cliparts/q/0/m/g/P/c/red-sports-car-top-view.svg',
-        iconSize: [25, 10],
+        iconSize: [200, 100],
         iconAnchor: [22, 94],
         popupAnchor: [-3, -76],
         shadowSize: [68, 95],
@@ -53,6 +53,9 @@ $(document).ready(function () {
         shadowAnchor: [22, 94]
     });
 
+    let markerRedOnImage = new L.Marker([-70, -70], {
+        icon: redIcon
+    });
 
     let markerRed = new L.Marker([40.300288, -83.541707], {
         icon: redIcon
@@ -68,6 +71,7 @@ $(document).ready(function () {
     markerRed.addTo(map);
     markerGreen.addTo(map);
     camera1.addTo(map);
+    markerRedOnImage.addTo(map);
     // image overlay
     // var imageUrl = 'http://johngeorgeracing.com/gallery/var/resizes/racing/thompson2014/IMG_7482.jpg?m=1406648141',
     // imageBounds = [[40.298586, -83.531446], [40.317028, -83.561549]];
