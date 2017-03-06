@@ -28,7 +28,7 @@ $(document).ready(function () {
 
     let redIcon = L.icon({
         iconUrl: 'http://www.clker.com/cliparts/q/0/m/g/P/c/red-sports-car-top-view.svg',
-        iconSize: [200, 100],
+        iconSize: [100, 50],
         iconAnchor: [22, 94],
         popupAnchor: [-3, -76],
         shadowSize: [68, 95],
@@ -46,7 +46,7 @@ $(document).ready(function () {
 
     let cameraIcon = L.icon({
         iconUrl: 'http://www.clipartbest.com/cliparts/KTj/o54/KTjo548ac.png',
-        iconSize: [25, 20],
+        iconSize: [50, 40],
         iconAnchor: [22, 94],
         popupAnchor: [-3, -76],
         shadowSize: [68, 95],
@@ -63,7 +63,7 @@ $(document).ready(function () {
     let markerGreen = new L.Marker([40.317028, -83.561549], {
         icon: greenIcon
     });
-    let camera1 = new L.Marker([40.298586, -83.531446], {
+    let camera1 = new L.Marker([-80, -70], {
         icon: cameraIcon
     }).on('click', function (e) {
         $(".camera").toggle();
