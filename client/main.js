@@ -6,23 +6,23 @@ import {
 } from 'meteor/reactive-var';
 import './main.html';
 
-
-$(document).ready(function () {
-    // let map = L.map('map', {
-    //     doubleClickZoom: true,
-    //     touchZoom: true
-    // }).setView(new L.LatLng(40.308057, -83.541730), 13);
+// let map = L.map('map', {
+//     doubleClickZoom: true,
+//     touchZoom: true
+// }).setView(new L.LatLng(40.308057, -83.541730), 13);
 
 
-    // L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
-    //     opacity: .5
-    // }).addTo(map);
-
-    var map = L.map('map').setView([-70, -70], 4);
+// L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
+//     opacity: .5
+// }).addTo(map);
+Template.map.onRendered = function () {
+    let map = L.map('map').setView([-70, -70], 4);
+    console.log(Locations.findOne());
+    console.log('template');
     L.tileLayer('http://localhost:8000/sampleTrack/{z}/{x}/{y}.png', {
         minZoom: 1,
         maxZoom: 6,
-        tms:true
+        tms: true
     }).addTo(map);
 
 
@@ -53,6 +53,7 @@ $(document).ready(function () {
         shadowAnchor: [22, 94]
     });
 
+
     let markerRedOnImage = new L.Marker([-70, -70], {
         icon: redIcon
     });
@@ -72,8 +73,4 @@ $(document).ready(function () {
     markerGreen.addTo(map);
     camera1.addTo(map);
     markerRedOnImage.addTo(map);
-    // image overlay
-    // var imageUrl = 'http://johngeorgeracing.com/gallery/var/resizes/racing/thompson2014/IMG_7482.jpg?m=1406648141',
-    // imageBounds = [[40.298586, -83.531446], [40.317028, -83.561549]];
-    // L.imageOverlay(imageUrl, imageBounds).addTo(map);
-});
+}
