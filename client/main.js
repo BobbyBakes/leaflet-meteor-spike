@@ -1,48 +1,28 @@
 import {
     Template
 } from 'meteor/templating';
-import {
-    ReactiveVar
-} from 'meteor/reactive-var';
 import './main.html';
 
-// let map = L.map('map', {
-//     doubleClickZoom: true,
-//     touchZoom: true
-// }).setView(new L.LatLng(40.308057, -83.541730), 13);
+Template.increment.events({
+    'click': function () {
+        let car = Locations.find('car1');
+        let x = car.x;
+        console.log(x);
 
+        console.log('updating car1 x coord with ' + 75);
+        Locations.update('car1', {$inc: {x: 75}})
+    }
+});
 
-// L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
-//     opacity: .5
-// }).addTo(map);
-Template.map.onRendered = function () {
-    let map = L.map('map').setView([-70, -70], 4);
-    console.log(Locations.findOne());
-    console.log('template');
+Template.map.rendered = function () {
+    console.log('-------initializing map---------')
+    map = L.map('map').setView([-70, -70], 4);
     L.tileLayer('http://localhost:8000/sampleTrack/{z}/{x}/{y}.png', {
         minZoom: 1,
         maxZoom: 6,
         tms: true
     }).addTo(map);
 
-
-    let redIcon = L.icon({
-        iconUrl: 'http://www.clker.com/cliparts/q/0/m/g/P/c/red-sports-car-top-view.svg',
-        iconSize: [100, 50],
-        iconAnchor: [22, 94],
-        popupAnchor: [-3, -76],
-        shadowSize: [68, 95],
-        shadowAnchor: [22, 94]
-    });
-
-    let greenIcon = L.icon({
-        iconUrl: 'http://images.clipartpanda.com/car-top-view-lime-car-top-view.svg',
-        iconSize: [25, 10],
-        iconAnchor: [22, 94],
-        popupAnchor: [-3, -76],
-        shadowSize: [68, 95],
-        shadowAnchor: [22, 94]
-    });
 
     let cameraIcon = L.icon({
         iconUrl: 'http://www.clipartbest.com/cliparts/KTj/o54/KTjo548ac.png',
@@ -53,24 +33,41 @@ Template.map.onRendered = function () {
         shadowAnchor: [22, 94]
     });
 
-
-    let markerRedOnImage = new L.Marker([-70, -70], {
-        icon: redIcon
-    });
-
-    let markerRed = new L.Marker([40.300288, -83.541707], {
-        icon: redIcon
-    });
-    let markerGreen = new L.Marker([40.317028, -83.561549], {
-        icon: greenIcon
-    });
     let camera1 = new L.Marker([-80, -70], {
         icon: cameraIcon
     }).on('click', function (e) {
         $(".camera").toggle();
-    });
-    markerRed.addTo(map);
-    markerGreen.addTo(map);
-    camera1.addTo(map);
-    markerRedOnImage.addTo(map);
-}
+    }).addTo(map);
+    Locations.find({}).observe({
+        changed: function (car) {
+            console.log('adding' + car.id + '\'s location');
+            var marker = new L.marker([car.x, car.y], {
+                _id: car.id,
+                icon: createIcon()
+            });
+            console.log('marker ' + marker.id + ' created');
+            map.addLayer(marker);
+        },
+        added: function (car) {
+            console.log('adding' + car.id + '\'s location');
+            var marker = new L.marker([car.x, car.y], {
+                _id: car.id,
+                icon: createIcon()
+            });
+            console.log('marker ' + marker.id + ' created');
+            map.addLayer(marker);
+        }
+    })
+};
+
+
+var createIcon = function () {
+    return L.icon({
+        iconUrl: 'http://www.clker.com/cliparts/q/0/m/g/P/c/red-sports-car-top-view.svg',
+        iconSize: [100, 50],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+        shadowSize: [68, 95],
+        shadowAnchor: [22, 94]
+    })
+};
