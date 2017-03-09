@@ -3,17 +3,6 @@ import {
 } from 'meteor/templating';
 import './main.html';
 
-Template.increment.events({
-    'click': function () {
-        let car = Locations.find('car1');
-        let x = car.x;
-        console.log(x);
-
-        console.log('updating car1 x coord with ' + 75);
-        Locations.update('car1', {$inc: {x: 75}})
-    }
-});
-
 Template.map.rendered = function () {
     console.log('-------initializing map---------')
     map = L.map('map').setView([-70, -70], 4);
@@ -40,21 +29,23 @@ Template.map.rendered = function () {
     }).addTo(map);
     Locations.find({}).observe({
         changed: function (car) {
-            console.log('adding' + car.id + '\'s location');
+            console.log(car.id + '\'s location has changed to X:' + car.x  + " Y:" + car.y);
+            map.removeLayer(markers[car.id]);
+            delete markers[car.id];
             var marker = new L.marker([car.x, car.y], {
                 _id: car.id,
                 icon: createIcon()
             });
-            console.log('marker ' + marker.id + ' created');
+            markers[car.id] = marker;
             map.addLayer(marker);
         },
         added: function (car) {
-            console.log('adding' + car.id + '\'s location');
+            console.log('adding ' + car.id + '\'s location');
             var marker = new L.marker([car.x, car.y], {
                 _id: car.id,
                 icon: createIcon()
             });
-            console.log('marker ' + marker.id + ' created');
+            markers[car.id] = marker;
             map.addLayer(marker);
         }
     })
@@ -71,3 +62,5 @@ var createIcon = function () {
         shadowAnchor: [22, 94]
     })
 };
+
+var markers = {};
