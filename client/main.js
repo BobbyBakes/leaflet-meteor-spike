@@ -7,16 +7,9 @@ Template.map.rendered = function () {
     console.log('-------Initializing Map---------')
     map = L.map('map', {
         crs: L.CRS.Simple
-    }).setView([500, 500], 1).on('zoomend', function () {
-        let currentZoom = map.getZoom();
-        _.each(markers, function (marker) {
-            console.log('Setting markers radius as: ' + currentZoom);
-            marker.radius = currentZoom;
-        })
-    });
+    }).setView([500, 500], 1);
 
     var bounds = [[0, 0], [1000, 1000]];
-    map.fitBounds(bounds);
     var image = L.imageOverlay('img/TRC-Map_web.svg', bounds).addTo(map);
 
     let purpleCamera = 'img/cameraPin-Purple.png';
