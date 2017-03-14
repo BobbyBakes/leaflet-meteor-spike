@@ -12,15 +12,3 @@ if (Locations.find({}).count() === 0) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-

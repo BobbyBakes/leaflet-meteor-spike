@@ -1,7 +1,10 @@
 /* CSS declarations go here */
 #map {
     min-height: 600px;
-    min-width: 100%;
+    min-width: 600px;
+}
+#container{
+    width: 1024px;
 }
 .camera {
     content: url(http://johngeorgeracing.com/gallery/var/resizes/racing/thompson2014/IMG_7482.jpg?m=1406648141);
@@ -10,4 +13,11 @@
 }
 .leaflet-container {
     background: #004873;
+}
+#bottom{
+    width: 1024px;
+    margin-top: -100px;
+}
+#top{
+    width: 1024px;
 }
