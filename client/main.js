@@ -27,11 +27,11 @@ Template.map.rendered = function () {
         changed: function (car) {
             console.log(car.id + '\'s location has changed to X:' + car.x + " Y:" + car.y);
             let marker = markers[car.id];
-            marker.setLatLng([car.x,car.y]);
+            marker.setLatLng([car.y,car.x]);
         },
         added: function (car) {
-            console.log('Adding ' + car.id + '\'s location');
-            let marker = new L.marker([car.x, car.y], {
+            console.log('Adding car' + car.id + '\'s location');
+            let marker = new L.marker([car.y, car.x], {
                 _id: car.id,
                 icon: createIcon(car)
             });
@@ -43,10 +43,13 @@ Template.map.rendered = function () {
 };
 
 
+
+
+
 var createIcon = function (car) {
     return L.icon({
         iconUrl: car.icon,
-        iconSize: [86 / 3, 89 / 3],
+        iconSize: [86 / 2, 89 / 2],
     })
 };
 
