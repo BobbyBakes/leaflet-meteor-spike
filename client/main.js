@@ -26,25 +26,20 @@ Template.map.rendered = function () {
     Locations.find({}).observe({
         changed: function (car) {
             console.log(car.id + '\'s location has changed to X:' + car.x + " Y:" + car.y);
-            map.removeLayer(markers[car.id]);
-            delete markers[car.id];
-            var marker = new L.marker([car.x, car.y], {
-                _id: car.id,
-                icon: createIcon(car)
-            });
-            markers[car.id] = marker;
-            map.addLayer(marker);
+            let marker = markers[car.id];
+            marker.setLatLng([car.x,car.y]);
         },
         added: function (car) {
             console.log('Adding ' + car.id + '\'s location');
-            var marker = new L.marker([car.x, car.y], {
+            let marker = new L.marker([car.x, car.y], {
                 _id: car.id,
                 icon: createIcon(car)
             });
             markers[car.id] = marker;
             map.addLayer(marker);
         }
-    })
+    });
+
 };
 
 
