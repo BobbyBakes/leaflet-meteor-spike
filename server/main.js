@@ -10,3 +10,4 @@ if (Locations.find({}).count() === 0) {
         Locations.insert(car);
     })
 }
+

@@ -18,6 +18,7 @@ Template.map.rendered = function () {
         iconSize: [128 / 3, 126 / 3],
     });
     let camera1 = new L.Marker([500, 500], {
+        title: 'Camera',
         icon: cameraIcon
     }).on('click', function (e) {
         $(".camera").toggle();
@@ -27,12 +28,14 @@ Template.map.rendered = function () {
         changed: function (car) {
             console.log(car.id + '\'s location has changed to X:' + car.x + " Y:" + car.y);
             let marker = markers[car.id];
-            marker.setLatLng([car.y,car.x]);
+            marker.setLatLng([car.y, car.x]);
         },
         added: function (car) {
             console.log('Adding car' + car.id + '\'s location');
             let marker = new L.marker([car.y, car.x], {
                 _id: car.id,
+                title: "Car " + car.id,
+                riseOnHover: true,
                 icon: createIcon(car)
             });
             markers[car.id] = marker;
@@ -41,9 +44,6 @@ Template.map.rendered = function () {
     });
 
 };
-
-
-
 
 
 var createIcon = function (car) {
